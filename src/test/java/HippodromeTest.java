@@ -9,7 +9,6 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.verify;
 
 class HippodromeTest {
     @Test
@@ -60,12 +59,13 @@ class HippodromeTest {
         List<Horse> mockHorses = createMockHorses();
         Hippodrome hippodrome = new Hippodrome(mockHorses);
         List<Horse> horses = hippodrome.getHorses();
+
         //when
         hippodrome.move();
 
         //then
         for (Horse horse : horses) {
-            verify(horse).move();
+            Mockito.verify(horse, Mockito.times(1)).move();
         }
     }
 
@@ -100,7 +100,7 @@ class HippodromeTest {
     @ExtendWith(MockitoExtension.class)
     private List<Horse> createMockHorses() {
         List<Horse> result = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 50; i++) {
             Horse mockedHorse = Mockito.mock(Horse.class);
             result.add(mockedHorse);
         }
